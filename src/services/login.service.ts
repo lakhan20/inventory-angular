@@ -10,10 +10,23 @@ export class LoginService {
  
   constructor(private http:HttpClient){}
   // private http=inject(HttpClient);
-
+  resp:any;
   login(loginObj:Login){
   
-  return this.http.post('https://localhost:7045/api/Login',loginObj);
-  }
+      // this.resp = 
+
+  // this.resp.subscribe((res:any)=>{
+  //   console.log("resp : ",res)
+
+  // })
+  // console.log("obj : ",loginObj);
+  // this.resp= this.http.post('https://localhost:7045/api/Login',loginObj).subscribe((result:any)=>{
+  //   console.log("result: ",result);
+
+  // });
+  // console.log("respppp",this.resp);
+      return this.http.post('https://localhost:7045/api/Login',loginObj);
+  
+}
 
 }

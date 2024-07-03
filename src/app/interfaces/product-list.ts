@@ -1,0 +1,20 @@
+export interface ProductList {
+    product_id:number
+    product_name:string
+    product_description:string
+    product_price:number
+    product_available_qty:number
+    product_total_qty:number
+    product_mrp:number,
+    product_discount:number
+    is_available:boolean
+    is_pieces:boolean
+    product_images:string[]
+    user_id:number
+    subCategory_id:number
+    subCategory_name:string
+    category_id:number
+    category_name:string
+    created_at:string
+    updated_at:string
+}

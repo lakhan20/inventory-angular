@@ -1,8 +1,8 @@
-import { ApplicationConfig } from '@angular/core';
+import { ApplicationConfig, ErrorHandler } from '@angular/core';
 import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
-import { provideHttpClient, withInterceptors } from '@angular/common/http';
+import { provideHttpClient, withInterceptors, HttpErrorResponse } from '@angular/common/http';
 
 import {provideToastr} from "ngx-toastr"
 
@@ -16,5 +16,8 @@ timeOut:1500,
 }
 
 
-  ),provideAnimations()]
+  ),provideAnimations(),
+  
+
+]
 };
