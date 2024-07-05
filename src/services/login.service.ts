@@ -1,5 +1,5 @@
 import { Injectable, inject } from '@angular/core';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Login } from '../app/interfaces/login';
 
 @Injectable({
@@ -28,5 +28,7 @@ export class LoginService {
       return this.http.post('https://localhost:7045/api/Login',loginObj);
   
 }
+
+
 
 }

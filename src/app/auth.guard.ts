@@ -6,7 +6,10 @@ import { routes } from './app.routes';
 
 // }
 export const authGuard: CanActivateFn = (route, state) => {
+// return false;
+  // debugger;
   console.log("token : ",localStorage.getItem("token"));
+  debugger;
   if(localStorage.getItem("token")){
     return true;
   }

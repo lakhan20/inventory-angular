@@ -1,0 +1,18 @@
+<h2 mat-dialog-title>{{product.product_name}}</h2>
+<mat-dialog-content class="mat-typography">
+<!--     @for (key of keysArray;  track key) {
+<a href="">{{key}}</a>
+      } -->
+      <!-- <table mat-table  class="mat-elevation-z8 demo-table">
+      <ng-container *ngFor="let key of keysArray;let i=index">
+        <th mat-header-cell *matHeaderCellDef> key </th>
+        <td mat-cell > valuesArray[i] </td>
+      </ng-container>
+</table> -->
+<table>
+    <tr *ngFor="let key of keysArray;let i=index">
+        <th>{{key}}</th>
+        <td>{{valuesArray[i]}}</td>
+    </tr>
+</table>
+</mat-dialog-content>

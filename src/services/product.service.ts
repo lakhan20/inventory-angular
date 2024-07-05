@@ -11,11 +11,11 @@ export class ProductService {
 
   products:Array<ProductList>=[];
 
-  getAllproducts() {
-   
+  getAllproducts() {   
  return   this.http.get("https://localhost:7045/api/getallproducts");
-
-
+  }
+  getProductById(product_id:number){
+    return this.http.get("https://localhost:7045/api/getproductbyid/"+product_id);
 
   }
 

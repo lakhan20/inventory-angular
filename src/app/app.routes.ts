@@ -5,6 +5,7 @@ import { DashboardComponent } from './pages/dashboard/dashboard.component';
 import { authGuard } from './auth.guard';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
+import { CanactivateGuard } from './canactivate.guard';
 
 export const routes: Routes = [
 {
@@ -18,10 +19,12 @@ export const routes: Routes = [
     path:'',component:LayoutComponent,
     children:
     [
-        {path:'dashboard',component:DashboardComponent,canActivateChild:[authGuard]},   
-        {path:'products',component:ProductListComponent,canActivateChild:[authGuard]},   
+        {path:'dashboard',component:DashboardComponent},   
+        {path:'products',component:ProductListComponent},   
     
-    ]
+    ],
+    
+    
 },
 {
     path:"logout",

@@ -8,6 +8,7 @@ import {provideToastr} from "ngx-toastr"
 
 import { provideAnimations  } from "@angular/platform-browser/animations";
 import { customInterceptor } from '../services/custom.interceptor';
+import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 export const appConfig: ApplicationConfig = {
   providers: [provideRouter(routes),provideHttpClient(withInterceptors([customInterceptor])),provideToastr(
 {
@@ -16,7 +17,7 @@ timeOut:1500,
 }
 
 
-  ),provideAnimations(),
+  ),provideAnimations(), provideAnimationsAsync(),
   
 
 ]
