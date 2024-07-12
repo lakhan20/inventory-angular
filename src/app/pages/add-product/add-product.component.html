@@ -1,0 +1,104 @@
+<h2 align="center">Add Product</h2>
+<hr />
+<div class="addProductMainDiv">
+<form class="example-form" [formGroup]="addProductForm" (ngSubmit)="onAddProductBtn()">
+  <tr>
+    <td>
+      <mat-form-field class="example-full-width">
+        <mat-label>Product Name</mat-label>
+        <input matInput placeholder="Ex. plain pant"  formControlName="product_name" name="product_name" />
+      </mat-form-field>
+    </td>
+    <td>
+        <mat-form-field class="example-full-width">
+          <mat-label>Product Price</mat-label>
+          <input matInput placeholder="Ex. 1500" formControlName="product_price" name="product_price"  />
+        </mat-form-field>
+      </td>
+  
+  </tr>
+  <tr>
+    <td colspan="2">
+      <mat-form-field class="example-full-width">
+        <mat-label>Product Description</mat-label>
+        <textarea matInput placeholder="Ex. Colors , cloth type" formControlName="product_description" name="product_description" ></textarea>
+      </mat-form-field>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <mat-form-field class="example-full-width">
+        <mat-label>Total Available Qty</mat-label>
+        <input matInput placeholder="Ex. 500" formControlName="product_total_qty" name="product_total_qty"  />
+      </mat-form-field>
+    </td>
+    <td>
+        <mat-form-field class="example-full-width">
+          <mat-label>MRP</mat-label>
+          <input matInput placeholder="Ex. 1200" formControlName="product_mrp" name="product_mrp"  />
+        </mat-form-field>
+      </td>
+  
+  </tr>
+  <tr>
+  
+    <td colspan="2">
+        <label id="example-radio-group-label">Is this product is in Pieces ? </label>
+        <br>
+        <mat-radio-group
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group"
+          formControlName="is_pieces" name="product_price" 
+         >
+            <mat-radio-button class="example-radio-button" value="true">Yes</mat-radio-button>
+            <mat-radio-button class="example-radio-button" value="false">No</mat-radio-button>
+        
+        </mat-radio-group>
+      </td>
+  
+  </tr>
+  <tr>
+    <td colspan="2">
+             <mat-form-field class="example-full-width">
+              <mat-label>Images</mat-label> 
+              <ngx-mat-file-input multiple formControlName="product_image" name="product_image" ></ngx-mat-file-input>
+            </mat-form-field>
+          </td>
+  </tr>
+  <tr>
+      <td>
+        <mat-form-field>
+            <mat-label>Select</mat-label>
+            <mat-select>
+              <mat-option value="one">First option</mat-option>
+              <mat-option value="two">Second option</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </td>
+      <td>
+        <mat-form-field>
+            <mat-label>Select</mat-label>
+            <mat-select>
+              <mat-option value="one">First option</mat-option>
+              <mat-option value="two">Second option</mat-option>
+            </mat-select>
+          </mat-form-field>
+      </td>
+  </tr>
+  <tr>
+      <td>
+        <button mat-fab extended color="primary">
+         
+            Add Product
+        </button>
+      </td>
+      <td>
+        <button    mat-fab extended color="danger" class="right-item">
+        Cancel
+        </button>
+      </td>
+  </tr>
+  
+  
+</form>
+</div>

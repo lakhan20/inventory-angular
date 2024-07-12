@@ -25,7 +25,8 @@ export class LoginService {
 
   // });
   // console.log("respppp",this.resp);
-      return this.http.post('https://localhost:7045/api/Login',loginObj);
+// debugger;
+  return this.http.post('https://localhost:7045/api/Login',loginObj);
   
 }
 

@@ -1,7 +1,16 @@
 /* You can add global styles to this file, and also import other style files */
 
-body{
+/* body{
     overflow: hidden;
-}
+} */
 /* html, body { height: 100%; } */
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.center-dialog .mat-dialog-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Vertical centering */
+    overflow: hidden; /* Prevents scroll bars */
+  }
+  

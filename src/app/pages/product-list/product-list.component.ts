@@ -20,13 +20,17 @@ import { MatInputModule } from '@angular/material/input';
 import { CommonModule } from '@angular/common';
 import { ProductfilterService } from '../../../services/productfilter.service';
 import { MatButtonModule } from '@angular/material/button';
-import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import { MatDialog, MatDialogModule, MatDialogConfig } from '@angular/material/dialog';
 import { SeemoreproductdetailsComponent } from '../seemoreproductdetails/seemoreproductdetails.component';
 import { ToastrService } from 'ngx-toastr';
 import { HttpErrorResponse } from '@angular/common/http';
 import { throwError, Observable } from 'rxjs';
 import { catchError } from 'rxjs/operators';
-import { Router } from '@angular/router';
+import { Router, RouterLink, RouterOutlet } from '@angular/router';
+import {MatDividerModule} from '@angular/material/divider';
+// import {MatButtonModule} from '@angular/material/button';
+import {MatIconModule} from '@angular/material/icon';
+
 @Component({
   selector: 'app-product-list',
   standalone: true,
@@ -41,6 +45,11 @@ import { Router } from '@angular/router';
     MatSelectModule,
     MatButtonModule,
     MatDialogModule,
+    MatIconModule,
+    MatDividerModule,
+    RouterLink,
+    RouterOutlet
+    
   ],
   templateUrl: './product-list.component.html',
   styleUrls: ['./product-list.component.css'],
@@ -50,11 +59,12 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   categories: Array<Category> = [];
   dataSource = new MatTableDataSource<ProductList>();
   displayedColumns: string[] = [
-    'product_id',
+    'srNo',
     'product_name',
     'product_price',
     'see_more',
   ];
+  statusCode:any=200;
   readonly dialog = inject(MatDialog);
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -69,17 +79,11 @@ export class ProductListComponent implements OnInit, AfterViewInit {
   ) {}
 
   ngOnInit() {
-    this.productService
-      .getAllproducts()
-      .pipe(catchError((error) => this.handleError(error, this.toastr)))
-      .subscribe((result: any) => {
-        this.products = result.products;
+    this.fn_GetAllProducts();
+    this.fn_getAllCategories();
+  }
 
-        console.log('inside result : ', this.products);
-        this.dataSource.data = this.products;
-        this.dataSource.sort = this.sort; // Ensure sort is assigned after data load
-      });
-
+  fn_getAllCategories(){
     this.categoryService.getAllCategories().subscribe((categoryResp: any) => {
       this.categories = categoryResp.categories;
 
@@ -87,19 +91,48 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     });
   }
 
+  fn_GetAllProducts(){
+    this.productService
+    .getAllproducts()
+    .pipe(catchError((error) => this.handleError(error, this.toastr)))
+    .subscribe((result: any) => {
+      this.statusCode=result.status;
+      this.products = result.products;
+
+      console.log('inside result : ', this.products);
+      this.dataSource.data = this.products;
+      this.dataSource.sort = this.sort; // Ensure sort is assigned after data load
+    });
+
+  }
+
+
+
+
   ngAfterViewInit() {
     this.dataSource.sort = this.sort;
   }
   openDialog(product_id: any) {
-    // console.log("see more",product_id);
-    const dialogRef = this.dialog.open(SeemoreproductdetailsComponent, {
-      data: { product_id: product_id },
-    });
-
+    const dialogConfig = new MatDialogConfig();
+  
+    // Set the width and height of the dialog
+    dialogConfig.width = '600px'; // Example width
+    dialogConfig.height = '600px'; // Example height
+  
+    // Add the custom class for centering
+    dialogConfig.panelClass = 'center-dialog';
+  
+    // Pass the data
+    dialogConfig.data = { product_id: product_id };
+  
+    const dialogRef = this.dialog.open(SeemoreproductdetailsComponent, dialogConfig);
+  
     dialogRef.afterClosed().subscribe((result: any) => {
       console.log(`Dialog result: ${result}`);
     });
   }
+  
+  
   private handleError(
     error: HttpErrorResponse,
     toastr: ToastrService
@@ -117,10 +150,34 @@ export class ProductListComponent implements OnInit, AfterViewInit {
     return throwError(() => new Error(errorMessage));
   }
 
+  private handleErrorProductByCat(
+    error: HttpErrorResponse,
+    toastr: ToastrService
+  ): Observable<never> {
+    let errorMessage = 'Unknown error!';
+    if (error.error instanceof ErrorEvent) {
+      // Client-side errors
+      errorMessage = `Error: ${error.error.message}`;
+    } else {
+      // Server-side errors
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+   this.statusCode=error.status
+    
+    return throwError(() => new Error(errorMessage));
+  }
+
   getProductByCategory(catid: any) {
+
     console.log('catid', catid);
+    if(catid==0){
+      this.fn_getAllCategories()
+      this.fn_GetAllProducts()
+    }
+    else{
     this.productfilterService
       .filterByCategory(catid)
+      .pipe(catchError((error) => this.handleErrorProductByCat(error, this.toastr)))
       .subscribe((result: any) => {
         console.log('result : ', result.status);
 
@@ -130,8 +187,12 @@ export class ProductListComponent implements OnInit, AfterViewInit {
           this.products = result.productList;
           this.dataSource.data = result.productList;
           console.log('products : ', this.products);
+          this.statusCode=result.status
+          this.dataSource.sort = this.sort; // Ensure sort is assigned after data load
+
         }
       });
+    }
   }
 
   announceSortChange(sortState: Sort) {

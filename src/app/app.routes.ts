@@ -6,6 +6,7 @@ import { authGuard } from './auth.guard';
 import { LogoutComponent } from './pages/logout/logout.component';
 import { ProductListComponent } from './pages/product-list/product-list.component';
 import { CanactivateGuard } from './canactivate.guard';
+import { AddProductComponent } from './pages/add-product/add-product.component';
 
 export const routes: Routes = [
 {
@@ -20,8 +21,9 @@ export const routes: Routes = [
     children:
     [
         {path:'dashboard',component:DashboardComponent},   
-        {path:'products',component:ProductListComponent},   
-    
+        {path:'products',component:ProductListComponent}, 
+        {path:'addproduct',component:AddProductComponent}  
+        
     ],
     
     

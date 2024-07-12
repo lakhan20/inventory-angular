@@ -10,7 +10,7 @@ export const customInterceptor: HttpInterceptorFn = (req, next) => {
       Authorization:`Bearer ${myToken}`
     }
   });
-  debugger;
+  // debugger;
   return next(cloneRequest);
 }
 return next(req);

@@ -6,4 +6,16 @@ table {
   th.mat-sort-header-sorted {
     color: black;
   }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
   
+  .left-item {
+    margin-right: auto;
+  }
+  
+  .right-item {
+    margin-left: auto;
+  }

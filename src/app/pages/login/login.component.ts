@@ -47,30 +47,27 @@ export class LoginComponent {
 
   resp: any;
   onLogin() {
+console.log("inside onlogin");
     if (!this.loginForm.valid) {
       this.toastr.warning('Please Enter valid input');
       return;
     }
 
-    // debugger;
-
-    //const  tempp=this.loginForm.controls["user_email"];
-    //  console.log(tempp && tempp.errors && tempp.errors['required']);
-    // console.log("inside on login", this.loginForm.controls["user_email"].value);
 
     this.loginObj.user_email = this.loginForm.controls['user_email'].value;
     this.loginObj.user_password = this.loginForm.controls[
       'user_password'
     ].value;
 
-    // console.log("login form", this.loginForm)
-    //  this.resp= this.loginservice.login(this.loginObj);
+    
 
     this.loginservice
       .login(this.loginObj)
       .pipe(catchError((error) => this.handleError(error, this.toastr)))
       .subscribe((result: any) => {
+      
         if (result.status == 200) {
+
           console.log('result  : ', result);
 
           localStorage.setItem('token', result.token);
@@ -83,27 +80,14 @@ export class LoginComponent {
           this.toastr.error(result.message);
         }
       });
-    // console.log("response",response);
-    // console.log("inside onlogin", this.loginObj);
-
-    //   this.http.post('https://localhost:7045/api/Login',this.loginObj).subscribe((res:any)=>{
-    //     // debugger;
-    //     console.log("resss : ",res);
-    //     if(res.status==200){
-    //       console.log(res);
-    //       alert(res.message);
-    //     }
-    //     else{
-    // alert(res.message);
-    //     }
-    //   })
-    // console.log("errr resp ::::  ",this.httperrorresponse);
+    
   }
 
   private handleError(
     error: HttpErrorResponse,
     toastr: ToastrService
   ): Observable<never> {
+    // debugger;
     let errorMessage = 'Unknown error!';
     if (error.error instanceof ErrorEvent) {
       // Client-side errors
@@ -112,7 +96,15 @@ export class LoginComponent {
       // Server-side errors
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    toastr.error(errorMessage);
-    return throwError(() => new Error(errorMessage));
+    console.log("Error message login : ",error.status);
+    if(error.status==0){
+    toastr.error("Internal server error.");
+    return throwError(() => new Error("Internal server error."));
+
+  }
+    else{
+      toastr.error(error.error.message);
+      return throwError(() => new Error(error.error.message));
+    }
   }
 }

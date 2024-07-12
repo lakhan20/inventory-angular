@@ -11,6 +11,9 @@ import { LoginService } from '../services/login.service';
   styleUrl: './app.component.css'
 })
 export class AppComponent {
-  constructor(private http:HttpClient,private loginService: LoginService){}
+  constructor(private http:HttpClient,private loginService: LoginService){
+    // console.log("called");
+    
+  }
   title = 'inventory-project';
 }

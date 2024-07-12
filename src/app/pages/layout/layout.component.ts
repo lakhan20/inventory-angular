@@ -41,9 +41,11 @@ export class LayoutComponent {
       // Server-side errors
       errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
     }
-    toastr.error(errorMessage);
+    console.log("errorMessage layout : ",error);
+    
+    // toastr.error(error.error.message);
     this.router.navigate(['/login']);
-    return throwError(() => new Error(errorMessage));
+    return throwError(() => new Error(error.error.message));
   }
 
 }
